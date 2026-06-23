@@ -1,0 +1,315 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern BMI Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(12px);
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+    text-align:center;
+    color:#0f172a;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:30px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
+
+input, select{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#f1f5f9;
+    font-size:16px;
+    outline:none;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.gender{
+    display:flex;
+    gap:10px;
+}
+
+.gender button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#f1f5f9;
+    font-size:16px;
+    transition:.3s;
+}
+
+.gender button.active{
+    background:#2563eb;
+    color:white;
+}
+
+.calculate-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:10px;
+    transition:.3s;
+}
+
+.calculate-btn:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    margin-top:25px;
+    display:none;
+    text-align:center;
+    padding:20px;
+    border-radius:16px;
+    background:#f8fafc;
+}
+
+.bmi-value{
+    font-size:50px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.category{
+    font-size:22px;
+    margin-top:10px;
+    font-weight:600;
+}
+
+.info{
+    margin-top:8px;
+    color:#64748b;
+}
+
+@media(max-width:600px){
+    .row{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>BMI Calculator</h1>
+    <p class="subtitle">Calculate your Body Mass Index</p>
+
+    <div class="row">
+        <div class="input-group">
+            <label>Age</label>
+            <input type="number" id="age" placeholder="Enter age">
+        </div>
+
+        <div class="input-group">
+            <label>Gender</label>
+            <div class="gender">
+                <button id="male" type="button">Male</button>
+                <button id="female" type="button">Female</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-group">
+            <label>Height Unit</label>
+            <select id="heightUnit">
+                <option value="cm">Centimeters (cm)</option>
+                <option value="ft">Feet & Inches</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Weight Unit</label>
+            <select id="weightUnit">
+                <option value="kg">Kilograms (kg)</option>
+                <option value="lb">Pounds (lb)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-group">
+            <label>Height</label>
+            <input type="number" id="height" placeholder="Height in cm">
+        </div>
+
+        <div class="input-group" id="inchesGroup" style="display:none;">
+            <label>Inches</label>
+            <input type="number" id="inches" placeholder="Inches">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label>Weight</label>
+        <input type="number" id="weight" placeholder="Enter weight">
+    </div>
+
+    <div class="input-group">
+        <label>Activity Level</label>
+        <select id="activity">
+            <option>Sedentary</option>
+            <option>Lightly Active</option>
+            <option>Moderately Active</option>
+            <option>Very Active</option>
+        </select>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateBMI()">
+        Calculate BMI
+    </button>
+
+    <div class="result" id="result">
+        <div class="bmi-value" id="bmiValue">0</div>
+        <div class="category" id="category"></div>
+        <div class="info" id="info"></div>
+    </div>
+
+</div>
+
+<script>
+
+let selectedGender = "";
+
+document.getElementById("male").addEventListener("click",function(){
+    selectedGender = "Male";
+    this.classList.add("active");
+    document.getElementById("female").classList.remove("active");
+});
+
+document.getElementById("female").addEventListener("click",function(){
+    selectedGender = "Female";
+    this.classList.add("active");
+    document.getElementById("male").classList.remove("active");
+});
+
+document.getElementById("heightUnit").addEventListener("change",function(){
+
+    if(this.value === "ft"){
+        document.getElementById("inchesGroup").style.display = "block";
+        document.getElementById("height").placeholder = "Feet";
+    }
+    else{
+        document.getElementById("inchesGroup").style.display = "none";
+        document.getElementById("height").placeholder = "Height in cm";
+    }
+
+});
+
+function calculateBMI(){
+
+    let heightUnit = document.getElementById("heightUnit").value;
+    let weightUnit = document.getElementById("weightUnit").value;
+
+    let height;
+    let weight = parseFloat(document.getElementById("weight").value);
+
+    if(heightUnit === "cm"){
+
+        height = parseFloat(document.getElementById("height").value) / 100;
+
+    }else{
+
+        let feet = parseFloat(document.getElementById("height").value);
+        let inches = parseFloat(document.getElementById("inches").value) || 0;
+
+        let totalInches = feet * 12 + inches;
+        height = totalInches * 0.0254;
+    }
+
+    if(weightUnit === "lb"){
+        weight = weight * 0.453592;
+    }
+
+    if(!height || !weight){
+        alert("Please fill all required fields.");
+        return;
+    }
+
+    let bmi = weight / (height * height);
+
+    let category = "";
+    let advice = "";
+
+    if(bmi < 18.5){
+        category = "Underweight";
+        advice = "Consider increasing your calorie and protein intake.";
+    }
+    else if(bmi < 25){
+        category = "Normal Weight";
+        advice = "Excellent! Your BMI is in the healthy range.";
+    }
+    else if(bmi < 30){
+        category = "Overweight";
+        advice = "Regular exercise and balanced nutrition are recommended.";
+    }
+    else{
+        category = "Obese";
+        advice = "Consult a healthcare professional for guidance.";
+    }
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("bmiValue").innerHTML = bmi.toFixed(1);
+    document.getElementById("category").innerHTML = category;
+    document.getElementById("info").innerHTML = advice;
+}
+</script>
+
+</body>
+</html>
+```
