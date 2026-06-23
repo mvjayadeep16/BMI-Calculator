@@ -26,24 +26,6 @@ A modern and responsive **BMI (Body Mass Index) Calculator** built using **HTML,
 
 ---
 
-## 📸 Screenshots
-
-### Main Calculator Interface
-
-Add your screenshot here.
-
-```md
-![BMI Calculator](images/Screenshot 2026-06-23 172850.png)
-```
-
-### BMI Result & Gauge
-
-```md
-![BMI Result](images/Screenshot 2026-06-23 173424.png)
-```
-
-
-
 ## 🏗️ Built With
 
 * HTML5
