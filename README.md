@@ -119,7 +119,8 @@ This project helped in understanding:
     <img src="https://img.shields.io/badge/🚀%20Click Here%20to visit-Live%20Demo-success?style=for-the-badge" alt="Live Demo">
   </a>
 </p>
-```
+
+
 
 ## 👨‍💻 Author
 
@@ -128,7 +129,7 @@ This project helped in understanding:
 B.Tech CSE Student
 SRM Institute of Science and Technology (SRMIST), Kattankulathur
 
----
+
 
 ## ⭐ Support
 
