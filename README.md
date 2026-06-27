@@ -112,6 +112,11 @@ This project helped in understanding:
 * UI/UX Design Principles
 
 ---
+Visut the site:
+
+```bash
+https://bmi-calculator-iota-three.vercel.app/
+```
 
 ## 👨‍💻 Author
 
