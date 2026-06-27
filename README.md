@@ -112,10 +112,13 @@ This project helped in understanding:
 * UI/UX Design Principles
 
 ---
-Visut the site:
+## 🌐 Check Out the Site
 
-```bash
-https://bmi-calculator-iota-three.vercel.app/
+<p align="center">
+  <a href="https://bmi-calculator-iota-three.vercel.app/">
+    <img src="https://img.shields.io/badge/🚀%20Click Here%20to visit-Live%20Demo-success?style=for-the-badge" alt="Live Demo">
+  </a>
+</p>
 ```
 
 ## 👨‍💻 Author
